@@ -12,7 +12,7 @@ const app = express();
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://expressLibrary:atcqDOOM100@cluster0.gpbeznp.mongodb.net/local_library?retryWrites=true&w=majority&appName=AtlasApp";
+const mongoDB = "mongodb+srv://myAtlasDBUser:mypassword@cluster0.gpbeznp.mongodb.net/local_library?retryWrites=true&w=majority&appName=AtlasApp";
 
 main().catch((err) => console.log(err));
 async function main() {
