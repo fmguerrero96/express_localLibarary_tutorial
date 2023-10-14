@@ -1,6 +1,7 @@
 const Book = require("../models/book");
 const Author = require("../models/author");
 const Genre = require("../models/genre");
+const { body, validationResult } = require("express-validator");
 const BookInstance = require("../models/bookinstance");
 
 const asyncHandler = require("express-async-handler");
@@ -66,8 +67,19 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
 
 // Display book create form on GET.
 exports.book_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Book create GET");
+  // Get all authors and genres, which we can use for adding to our book.
+  const [allAuthors, allGenres] = await Promise.all([
+    Author.find().exec(),
+    Genre.find().exec(),
+  ]);
+
+  res.render("book_form", {
+    title: "Create Book",
+    authors: allAuthors,
+    genres: allGenres,
+  });
 });
+
 
 // Handle book create on POST.
 exports.book_create_post = asyncHandler(async (req, res, next) => {
