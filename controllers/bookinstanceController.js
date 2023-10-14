@@ -1,4 +1,6 @@
 const BookInstance = require("../models/bookinstance");
+const Book = require("../models/book");
+const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 // Display list of all BookInstances.
@@ -30,10 +32,14 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
-
 // Display BookInstance create form on GET.
 exports.bookinstance_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance create GET");
+  const allBooks = await Book.find({}, "title").exec();
+
+  res.render("bookinstance_form", {
+    title: "Create BookInstance",
+    book_list: allBooks,
+  });
 });
 
 // Handle BookInstance create on POST.
