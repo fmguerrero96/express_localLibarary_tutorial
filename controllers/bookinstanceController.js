@@ -37,7 +37,7 @@ exports.bookinstance_create_get = asyncHandler(async (req, res, next) => {
   const allBooks = await Book.find({}, "title").exec();
 
   res.render("bookinstance_form", {
-    title: "Create BookInstance",
+    title: "Create Book Instance",
     book_list: allBooks,
   });
 });
@@ -131,7 +131,7 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
   }
 
   res.render("bookinstance_form", {
-    title: "Update BookInstance",
+    title: "Update Book Instance",
     book_list: allBooks,
     bookInstance: bookInstance,
     selected_book: bookInstance.book._id,
