@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 
 const compression = require("compression");
+const helmet = require("helmet");
 
 const app = express();
 
@@ -28,6 +29,15 @@ async function main() {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Add helmet to the middleware chain.
+// Set CSP headers to allow our Bootstrap and Jquery to be served
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
 app.use(compression()); // Compress all routes
 app.use(logger('dev'));
 app.use(express.json());
